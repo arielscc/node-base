@@ -8,6 +8,10 @@ class Tasks {
     this._taskList = {};
   }
 
+  get taskList() {
+    return Object.values(this._taskList);
+  }
+
   createTask(description: string = '') {
     const task = new Task(description);
     this._taskList[task.id] = task;
