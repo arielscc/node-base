@@ -1,14 +1,14 @@
 interface Task {
   id: string;
   description: string;
-  completedAt: Date | null
+  completedAt: Date | null;
 }
-type TasksList = Record<string, Task>
+type TasksList = Record<string, Task>;
 class Tasks {
-  _taskList: TasksList = {}
+  _taskList: TasksList = {};
   constructor() {
-    this._taskList = {}
+    this._taskList = {};
   }
 }
 
-export default Tasks
+export default Tasks;
