@@ -38,6 +38,12 @@ class Tasks {
     const data = this.taskList.filter((task) => !task.completedAt).map(composeData);
     return data;
   }
+
+  deleteTask(id: string) {
+    if (this._taskList[id]) {
+      delete this._taskList[id];
+    }
+  }
 }
 
 export default Tasks;

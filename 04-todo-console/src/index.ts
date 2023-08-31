@@ -1,4 +1,4 @@
-import { inquirerMenu, pauseMenu, readInput } from './helpers/inquirerMenu';
+import { inquirerMenu, pauseMenu, readInput, tasksOptions } from './helpers/inquirerMenu';
 import { logTable } from './helpers/logTable';
 import { readTasks, saveTasks } from './helpers/saveTasks';
 import Tasks from './model/tasks';
@@ -34,6 +34,18 @@ const main = async () => {
       case '4':
         const pendingTasks = tasks.listPendingTasks();
         logTable(pendingTasks);
+        break;
+      case '5':
+        break;
+      case '6':
+        const taskId = await tasksOptions(Object.values(tasks.taskList));
+        if (taskId !== '0') {
+          const confirm = await readInput('¿Está seguro? (s/n)');
+          if (confirm === 's') {
+            tasks.deleteTask(taskId);
+            console.log('Tarea borrada');
+          }
+        }
         break;
       default:
         break;

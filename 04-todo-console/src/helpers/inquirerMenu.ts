@@ -1,5 +1,6 @@
 import 'colors';
 import inquirer, { QuestionCollection } from 'inquirer';
+import Task from '../model/task';
 
 const questions: QuestionCollection = [
   {
@@ -76,4 +77,23 @@ export const readInput = async (message: string) => {
   ];
   const { description } = await inquirer.prompt(question);
   return description;
+};
+
+export const tasksOptions = async (tasks: Task[]) => {
+  const options: QuestionCollection = [
+    {
+      type: 'list',
+      name: 'option',
+      message: '¿Qué tarea desea eliminar?',
+      choices: tasks.map((task: Task, index: number) => {
+        const idx = `${index + 1}.`.green;
+        return {
+          value: task.id,
+          name: `${idx} ${task.description}`,
+        };
+      }),
+    },
+  ];
+  const { option } = await inquirer.prompt(options);
+  return option;
 };
