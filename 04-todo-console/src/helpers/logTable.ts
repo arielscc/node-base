@@ -13,6 +13,8 @@ const config: TableUserConfig = {
   },
 };
 
+const headers = ['numero', 'descripción', 'estado', 'creado el'].map((header) => header.green);
+
 export const logTable = (data: any[][]) => {
-  console.log(table(data, config));
+  console.log(table([headers, ...data], config));
 };

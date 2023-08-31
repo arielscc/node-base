@@ -1,4 +1,4 @@
-import { formatDate } from '../lib/dates';
+import { composeData } from '../lib/composeData';
 import Task from './task';
 
 type TasksList = Record<string, Task>;
@@ -24,17 +24,19 @@ class Tasks {
     });
   }
 
-  listTasks() {
-    const data = this.taskList.map((task, index) => {
-      return [
-        index + 1,
-        task.description,
-        task.completedAt ? 'Completada'.green : 'Pendiente'.red,
-        formatDate(task.createdAt),
-      ];
-    });
-    const headers = ['numero', 'descripción', 'estado', 'creado el'].map((header) => header.green);
-    return [headers, ...data];
+  listAllTasks() {
+    const data = this.taskList.map(composeData);
+    return data;
+  }
+
+  listCompletedTasks() {
+    const data = this.taskList.filter((task) => task.completedAt).map(composeData);
+    return data;
+  }
+
+  listPendingTasks() {
+    const data = this.taskList.filter((task) => !task.completedAt).map(composeData);
+    return data;
   }
 }
 

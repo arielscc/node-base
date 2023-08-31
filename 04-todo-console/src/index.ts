@@ -1,7 +1,6 @@
 import { inquirerMenu, pauseMenu, readInput } from './helpers/inquirerMenu';
 import { logTable } from './helpers/logTable';
 import { readTasks, saveTasks } from './helpers/saveTasks';
-import Task from './model/task';
 import Tasks from './model/tasks';
 
 const main = async () => {
@@ -25,23 +24,17 @@ const main = async () => {
         tasks.createTask(description);
         break;
       case '2':
-        const data = tasks.listTasks();
+        const data = tasks.listAllTasks();
         logTable(data);
         break;
       case '3':
+        const completedTasks = tasks.listCompletedTasks();
+        logTable(completedTasks);
         break;
       case '4':
-        const uncompletedTasks = Object.keys(tasks._taskList).reduce(
-          (acc, key) => {
-            const task = tasks._taskList[key];
-            if (task.completedAt === null) {
-              acc[key] = task;
-            }
-            return acc;
-          },
-          {} as Record<string, Task>
-        );
-        console.log(uncompletedTasks);
+        const pendingTasks = tasks.listPendingTasks();
+        logTable(pendingTasks);
+        break;
       default:
         break;
     }
