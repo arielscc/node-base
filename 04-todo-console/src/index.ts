@@ -1,4 +1,5 @@
 import { inquirerMenu, pauseMenu, readInput } from './helpers/inquirerMenu';
+import { logTable } from './helpers/logTable';
 import { readTasks, saveTasks } from './helpers/saveTasks';
 import Task from './model/task';
 import Tasks from './model/tasks';
@@ -24,7 +25,8 @@ const main = async () => {
         tasks.createTask(description);
         break;
       case '2':
-        console.log(tasks.taskList);
+        const data = tasks.listTasks();
+        logTable(data);
         break;
       case '3':
         break;
