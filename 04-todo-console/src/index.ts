@@ -1,11 +1,16 @@
 import { inquirerMenu, pauseMenu, readInput } from './helpers/inquirerMenu';
-import { readTasks } from './helpers/saveTasks';
+import { readTasks, saveTasks } from './helpers/saveTasks';
 import Task from './model/task';
 import Tasks from './model/tasks';
 
 const main = async () => {
   let opt: string;
   const tasks = new Tasks();
+
+  const tasksFromDB = readTasks();
+  if (tasksFromDB) {
+    tasks.loadTasks(tasksFromDB);
+  }
 
   do {
     // const task = new Task('Comprar comida');
@@ -19,12 +24,7 @@ const main = async () => {
         tasks.createTask(description);
         break;
       case '2':
-        const tasksFromDB = readTasks();
-        if (tasksFromDB) {
-          console.log(tasksFromDB);
-        } else {
-          console.log('No hay tareas');
-        }
+        console.log(tasks.taskList);
         break;
       case '3':
         break;
@@ -44,7 +44,7 @@ const main = async () => {
         break;
     }
 
-    // saveTasks(tasks.taskList);
+    saveTasks(tasks.taskList);
 
     await pauseMenu();
   } while (opt !== '0');

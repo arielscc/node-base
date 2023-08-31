@@ -16,6 +16,12 @@ class Tasks {
     const task = new Task(description);
     this._taskList[task.id] = task;
   }
+
+  loadTasks(tasks: Task[]) {
+    tasks.forEach((task) => {
+      this._taskList[task.id] = task;
+    });
+  }
 }
 
 export default Tasks;
