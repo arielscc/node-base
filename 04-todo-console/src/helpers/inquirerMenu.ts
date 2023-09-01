@@ -79,11 +79,31 @@ export const readInput = async (message: string) => {
   return description;
 };
 
+export const completeTaskOptions = async (tasks: Task[]) => {
+  const options: QuestionCollection = [
+    {
+      type: 'checkbox',
+      name: 'id',
+      message: '¿Qué tarea(s) desea completar?',
+      choices: tasks.map((task: Task, index: number) => {
+        const idx = `${index + 1}.`.green;
+        return {
+          value: task.id,
+          name: `${idx} ${task.description}`,
+          checked: task.completedAt ? true : false,
+        };
+      }),
+    },
+  ];
+  const { id } = await inquirer.prompt(options);
+  return id;
+};
+
 export const tasksOptions = async (tasks: Task[]) => {
   const options: QuestionCollection = [
     {
       type: 'list',
-      name: 'option',
+      name: 'ids',
       message: '¿Qué tarea desea eliminar?',
       choices: tasks.map((task: Task, index: number) => {
         const idx = `${index + 1}.`.green;
@@ -94,6 +114,18 @@ export const tasksOptions = async (tasks: Task[]) => {
       }),
     },
   ];
-  const { option } = await inquirer.prompt(options);
-  return option;
+  const { ids } = await inquirer.prompt(options);
+  return ids;
+};
+
+export const confirm = async (message: string) => {
+  const question: QuestionCollection = [
+    {
+      type: 'confirm',
+      name: 'ok',
+      message,
+    },
+  ];
+  const { ok } = await inquirer.prompt(question);
+  return ok;
 };

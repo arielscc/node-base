@@ -1,4 +1,11 @@
-import { inquirerMenu, pauseMenu, readInput, tasksOptions } from './helpers/inquirerMenu';
+import {
+  completeTaskOptions,
+  confirm,
+  inquirerMenu,
+  pauseMenu,
+  readInput,
+  tasksOptions,
+} from './helpers/inquirerMenu';
 import { logTable } from './helpers/logTable';
 import { readTasks, saveTasks } from './helpers/saveTasks';
 import Tasks from './model/tasks';
@@ -36,12 +43,22 @@ const main = async () => {
         logTable(pendingTasks);
         break;
       case '5':
+        const uncompletedTasks = Object.values(tasks.taskList).filter((task) => !task.completedAt);
+        if (uncompletedTasks.length === 0) {
+          console.log('No hay tareas pendientes');
+          break;
+        }
+        const ids = await completeTaskOptions(uncompletedTasks);
+        ids.forEach((id: string) => {
+          tasks._taskList[id].completedAt = new Date();
+          tasks._taskList[id].updatedAt = new Date();
+        });
         break;
       case '6':
         const taskId = await tasksOptions(Object.values(tasks.taskList));
         if (taskId !== '0') {
-          const confirm = await readInput('¿Está seguro? (s/n)');
-          if (confirm === 's') {
+          const resp = await confirm('¿Está seguro?');
+          if (resp) {
             tasks.deleteTask(taskId);
             console.log('Tarea borrada');
           }
