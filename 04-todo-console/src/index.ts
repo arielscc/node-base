@@ -10,7 +10,7 @@ import { logTable } from './helpers/logTable';
 import { readTasks, saveTasks } from './helpers/saveTasks';
 import Tasks from './model/tasks';
 
-const main = async () => {
+export async function todo() {
   let opt: string;
   const tasks = new Tasks();
 
@@ -76,6 +76,11 @@ const main = async () => {
 
     await pauseMenu();
   } while (opt !== '0');
-};
+}
 
-main();
+if (require.main === module) {
+  todo().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
