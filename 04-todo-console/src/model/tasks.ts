@@ -30,12 +30,12 @@ class Tasks {
   }
 
   listCompletedTasks() {
-    const data = this.taskList.filter((task) => task.completedAt).map(composeData);
+    const data = this.taskList.filter((task) => task.completed).map(composeData);
     return data;
   }
 
   listPendingTasks() {
-    const data = this.taskList.filter((task) => !task.completedAt).map(composeData);
+    const data = this.taskList.filter((task) => !task.completed).map(composeData);
     return data;
   }
 

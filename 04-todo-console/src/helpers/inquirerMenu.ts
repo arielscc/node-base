@@ -10,7 +10,7 @@ const questions: QuestionCollection = [
     choices: [
       {
         value: '1',
-        name: `${'1'.green} Crear tarea`,
+        name: `${'1.'.green} Crear tarea`,
       },
       {
         value: '2',
@@ -43,7 +43,7 @@ const questions: QuestionCollection = [
 export const inquirerMenu = async (): Promise<string> => {
   console.clear();
   console.log('============================'.green);
-  console.log('   Seleccione una opción'.green);
+  console.log('   Seleccione una opción'.bold);
   console.log('============================'.green);
 
   const { option } = await inquirer.prompt(questions);
@@ -83,20 +83,20 @@ export const completeTaskOptions = async (tasks: Task[]) => {
   const options: QuestionCollection = [
     {
       type: 'checkbox',
-      name: 'id',
+      name: 'ids',
       message: '¿Qué tarea(s) desea completar?',
       choices: tasks.map((task: Task, index: number) => {
         const idx = `${index + 1}.`.green;
         return {
           value: task.id,
           name: `${idx} ${task.description}`,
-          checked: task.completedAt ? true : false,
+          checked: task.completed ? true : false,
         };
       }),
     },
   ];
-  const { id } = await inquirer.prompt(options);
-  return id;
+  const { ids } = await inquirer.prompt(options);
+  return ids;
 };
 
 export const tasksOptions = async (tasks: Task[]) => {
@@ -105,13 +105,19 @@ export const tasksOptions = async (tasks: Task[]) => {
       type: 'list',
       name: 'ids',
       message: '¿Qué tarea desea eliminar?',
-      choices: tasks.map((task: Task, index: number) => {
-        const idx = `${index + 1}.`.green;
-        return {
-          value: task.id,
-          name: `${idx} ${task.description}`,
-        };
-      }),
+      choices: [
+        ...tasks.map((task: Task, index: number) => {
+          const idx = `${index + 1}.`.green;
+          return {
+            value: task.id,
+            name: `${idx} ${task.description}`,
+          };
+        }),
+        {
+          value: '0',
+          name: `${'0.'.green} Cancelar`,
+        },
+      ],
     },
   ];
   const { ids } = await inquirer.prompt(options);

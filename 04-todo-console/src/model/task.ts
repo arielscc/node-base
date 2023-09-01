@@ -4,14 +4,14 @@ class Task {
   description: string = '';
   createdAt: Date;
   updatedAt: Date;
-  completedAt: Date | null = null;
+  completed: boolean;
 
   constructor(description: string) {
     this.id = uuidv4();
     this.description = description;
     this.createdAt = new Date();
     this.updatedAt = new Date();
-    this.completedAt = null;
+    this.completed = false;
   }
 }
 
