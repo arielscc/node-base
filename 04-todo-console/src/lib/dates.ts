@@ -1,8 +1,10 @@
-export const formatDate = (date: Date | string): string => {
+export const formatDateTime = (date: Date | string): string => {
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
-    month: 'long',
+    month: 'numeric',
     day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
   };
   if (typeof date === 'string') {
     date = new Date(date);

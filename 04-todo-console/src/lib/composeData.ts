@@ -1,11 +1,12 @@
 import Task from '../model/task';
-import { formatDate } from './dates';
+import { formatDateTime } from './dates';
 
 export const composeData = (task: Task, index: number) => {
   return [
     index + 1,
     task.description,
-    task.completedAt ? 'Completada'.green : 'Pendiente'.red,
-    formatDate(task.createdAt),
+    task.completed ? 'Completada'.green : 'Pendiente'.red,
+    formatDateTime(task.createdAt),
+    formatDateTime(task.updatedAt),
   ];
 };
