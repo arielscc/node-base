@@ -1,11 +1,11 @@
 {
   "name": "04-todo-console",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "npm run build && node build/index",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "yarn build && node dist/index"
   },
   "dependencies": {
     "colors": "^1.4.0",
