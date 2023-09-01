@@ -1,6 +1,6 @@
 {
   "name": "@arielscc/todo-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "license": "MIT",
   "bin": {
@@ -17,9 +17,10 @@
     "console"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc",
     "start": "yarn build && node dist/index",
-    "generate-bin": "mkdir bin && cp dist/index.js bin/index.js"
+    "generate-bin": "mkdir bin && cp dist/index.js bin/index.js",
+    "publish": "yarn build && yarn generate-bin && npm publish"
   },
   "dependencies": {
     "colors": "^1.4.0",
