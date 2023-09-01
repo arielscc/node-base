@@ -7,5 +7,11 @@ This is a console app to record my to-dos
 you can install it with the command
 
 ```bash
-npm install -g @arielscc/todo-app
+npm install -g @arielscc/todo-cli
+```
+
+to use the app run:
+
+```bash
+todo
 ```
