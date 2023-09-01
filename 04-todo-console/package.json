@@ -20,9 +20,9 @@
   "scripts": {
     "start": "yarn build && node dist/index",
     "clean": "rm -rf dist && rm -rf bin",
-    "build": "tsc",
+    "build": "yarn clean && tsc",
     "generate-bin": "node bundle.js",
-    "publish": "yarn clean && yarn build && yarn generate-bin && npm publish"
+    "publish": "yarn build && yarn generate-bin && npm publish"
   },
   "dependencies": {
     "colors": "^1.4.0",

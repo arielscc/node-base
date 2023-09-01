@@ -1,4 +1,4 @@
 build
-db
 dist
+bin
 node_modules
