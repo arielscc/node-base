@@ -1,6 +1,6 @@
 {
   "name": "@arielscc/todo-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "license": "MIT",
   "bin": {
@@ -8,8 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+"
+    "url": "git+https://github.com/arielscc/node-base/tree/main/04-todo-console"
   },
+  "homepage": "https://github.com/arielscc/node-base/tree/main/04-todo-console#readme",
   "keywords": [
     "todo",
     "cli",
@@ -17,10 +18,11 @@
     "console"
   ],
   "scripts": {
-    "build": "rm -rf dist && tsc",
     "start": "yarn build && node dist/index",
-    "generate-bin": "mkdir bin && cp dist/index.js bin/index.js",
-    "publish": "yarn build && yarn generate-bin && npm publish"
+    "clean": "rm -rf dist && rm -rf bin",
+    "build": "tsc",
+    "generate-bin": "node bundle.js",
+    "publish": "yarn clean && yarn build && yarn generate-bin && npm publish"
   },
   "dependencies": {
     "colors": "^1.4.0",
@@ -32,6 +34,7 @@
     "@types/inquirer": "^9.0.3",
     "@types/node": "^20.5.7",
     "@types/uuid": "^9.0.2",
+    "esbuild": "^0.19.2",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
