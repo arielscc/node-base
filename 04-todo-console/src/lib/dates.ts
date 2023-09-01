@@ -1,4 +1,5 @@
-export const formatDateTime = (date: Date | string): string => {
+export const formatDateTime = (date: string): string => {
+  const dateObject = new Date(date);
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'numeric',
@@ -6,8 +7,5 @@ export const formatDateTime = (date: Date | string): string => {
     hour: 'numeric',
     minute: 'numeric',
   };
-  if (typeof date === 'string') {
-    date = new Date(date);
-  }
-  return new Intl.DateTimeFormat('es-ES', options).format(date);
+  return new Intl.DateTimeFormat('es-ES', options).format(dateObject);
 };

@@ -20,9 +20,6 @@ const main = async () => {
   }
 
   do {
-    // const task = new Task('Comprar comida');
-    // tasks._taskList[task.id] = task;
-
     opt = await inquirerMenu();
 
     switch (opt) {
