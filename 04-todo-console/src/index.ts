@@ -32,26 +32,33 @@ const main = async () => {
         break;
       case '2':
         const data = tasks.listAllTasks();
+        if (data.length === 0) {
+          console.log('No hay tareas registradas'.green);
+          break;
+        }
         logTable(data);
         break;
       case '3':
         const completedTasks = tasks.listCompletedTasks();
+        if (completedTasks.length === 0) {
+          console.log('No hay tareas completadas'.green);
+          break;
+        }
         logTable(completedTasks);
         break;
       case '4':
         const pendingTasks = tasks.listPendingTasks();
+        if (pendingTasks.length === 0) {
+          console.log('No hay tareas pendientes'.green);
+          break;
+        }
         logTable(pendingTasks);
         break;
       case '5':
-        const uncompletedTasks = Object.values(tasks.taskList).filter((task) => !task.completedAt);
-        if (uncompletedTasks.length === 0) {
-          console.log('No hay tareas pendientes');
-          break;
-        }
-        const ids = await completeTaskOptions(uncompletedTasks);
-        ids.forEach((id: string) => {
-          tasks._taskList[id].completedAt = new Date();
-          tasks._taskList[id].updatedAt = new Date();
+        const currentTasks = Object.values(tasks.taskList);
+        const checkedIds = await completeTaskOptions(currentTasks);
+        currentTasks.map((task) => {
+          task.completed = checkedIds.includes(task.id) ? true : false;
         });
         break;
       case '6':
