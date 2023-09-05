@@ -1,5 +1,6 @@
 import 'colors';
 import inquirer, { QuestionCollection } from 'inquirer';
+import { MenuOptions, Place } from '../models/types';
 // import Task from '../model/task';
 
 const questions: QuestionCollection = [
@@ -9,38 +10,22 @@ const questions: QuestionCollection = [
     message: '¿Qué desea hacer?',
     choices: [
       {
-        value: '1',
-        name: `${'1.'.green} Crear tarea`,
+        value: MenuOptions.BuscarCiudad,
+        name: `${(MenuOptions.BuscarCiudad + '.').green} Buscar Ciudad`,
       },
       {
-        value: '2',
-        name: `${'2.'.green} Listar tareas`,
+        value: MenuOptions.Historial,
+        name: `${(MenuOptions.Historial + '.').green} Historial`,
       },
       {
-        value: '3',
-        name: `${'3.'.green} Listar tareas completadas`,
-      },
-      {
-        value: '4',
-        name: `${'4.'.green} Listar tareas pendientes`,
-      },
-      {
-        value: '5',
-        name: `${'5.'.green} Completar tarea(s)`,
-      },
-      {
-        value: '6',
-        name: `${'6.'.green} Borrar tareas`,
-      },
-      {
-        value: '0',
-        name: `${'0.'.green} Salir`,
+        value: MenuOptions.Salir,
+        name: `${(MenuOptions.Salir + '.').green} Salir`,
       },
     ],
   },
 ];
 
-export const inquirerMenu = async (): Promise<string> => {
+export const inquirerMenu = async (): Promise<MenuOptions> => {
   console.clear();
   console.log('============================'.green);
   console.log('   Seleccione una opción'.bold);
@@ -99,29 +84,30 @@ export const completeTaskOptions = async (tasks: any) => {
   return ids;
 };
 
-export const tasksOptions = async (tasks: any) => {
+export const selectPlace = async (places: Place[]): Promise<string> => {
+  const choices = places.map((place: Place, index: number) => {
+    const idx = `${index + 1}.`.green;
+    return {
+      value: place.id,
+      name: `${idx} ${place.name}`,
+    };
+  });
+
+  choices.unshift({
+    value: '0',
+    name: '0.'.green + ' Cancelar',
+  });
+
   const options: QuestionCollection = [
     {
       type: 'list',
-      name: 'ids',
-      message: '¿Qué tarea desea eliminar?',
-      choices: [
-        ...tasks.map((task: any, index: number) => {
-          const idx = `${index + 1}.`.green;
-          return {
-            value: task.id,
-            name: `${idx} ${task.description}`,
-          };
-        }),
-        {
-          value: '0',
-          name: `${'0.'.green} Cancelar`,
-        },
-      ],
+      name: 'id',
+      message: '¿Qué lugar desea seleccionar?',
+      choices,
     },
   ];
-  const { ids } = await inquirer.prompt(options);
-  return ids;
+  const { id } = await inquirer.prompt(options);
+  return id;
 };
 
 export const confirm = async (message: string) => {
