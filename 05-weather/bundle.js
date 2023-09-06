@@ -2,7 +2,7 @@ const esbuild = require('esbuild');
 
 esbuild.build({
   entryPoints: ['src/index.ts'],
-  outfile: 'bin/index.js',
+  outfile: 'bin/weather.js',
   bundle: true,
   tsconfig: './tsconfig.json',
   platform: 'node',
