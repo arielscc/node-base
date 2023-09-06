@@ -1,10 +1,28 @@
 {
-  "name": "05-weather",
+  "name": "@arielscc/weather",
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
+  "private": false,
+  "bin": {
+    "weather": "./bin/weather.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arielscc/node-base/tree/main/05-weather"
+  },
+  "homepage": "https://github.com/arielscc/node-base/tree/main/05-weather#readme",
+  "keywords": [
+    "weather",
+    "cli",
+    "typescript",
+    "console"
+  ],
   "scripts": {
-    "start": "tsc && node dist/index.js"
+    "start": "yarn build && node dist/index",
+    "clean": "rm -rf dist && rm -rf bin",
+    "build": "yarn clean && tsc && node bundle.js",
+    "publish": "yarn build && npm publish --access public"
   },
   "dependencies": {
     "axios": "^1.5.0",
