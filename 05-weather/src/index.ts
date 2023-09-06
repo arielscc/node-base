@@ -18,14 +18,22 @@ const Weather = async () => {
         if (id === '0') continue;
         const { name, lat, lng } = cities.find((city) => city.id === id)!;
 
+        const weather = await search.getWeatherByCoords(lat, lng);
+        if (!weather) {
+          console.log('No se pudo determinar el clima de la ciudad'.red);
+          continue;
+        }
+
+        const { temp, temp_max, temp_min, description } = weather;
+
         console.log('\nInformación de la ciudad\n'.america.bold);
         console.log('Ciudad:', name);
         console.log('Lat:', lat);
         console.log('Lng:', lng);
-        console.log('Temperatura:', 20);
-        console.log('Mínima:', 20);
-        console.log('Máxima:', 20);
-        console.log('Como está el clima:', 'Soleado');
+        console.log(`Temperatura: ${temp}°C`);
+        console.log('Mínima:', temp_min);
+        console.log('Máxima:', temp_max);
+        console.log('Como está el clima:', description);
         break;
       case MenuOptions.Historial:
         log('Historial');
