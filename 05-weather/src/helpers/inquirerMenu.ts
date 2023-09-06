@@ -7,7 +7,7 @@ const questions: QuestionCollection = [
   {
     type: 'list',
     name: 'option',
-    message: '¿Qué desea hacer?',
+    message: 'Seleccione una opción',
     choices: [
       {
         value: MenuOptions.BuscarCiudad,
@@ -28,7 +28,7 @@ const questions: QuestionCollection = [
 export const inquirerMenu = async (): Promise<MenuOptions> => {
   console.clear();
   console.log('============================'.green);
-  console.log('   Seleccione una opción'.bold);
+  console.log('   Consulta de clima'.green.bold);
   console.log('============================'.green);
 
   const { option } = await inquirer.prompt(questions);
@@ -64,26 +64,6 @@ export const readInput = async (message: string) => {
   return description;
 };
 
-export const completeTaskOptions = async (tasks: any) => {
-  const options: QuestionCollection = [
-    {
-      type: 'checkbox',
-      name: 'ids',
-      message: '¿Qué tarea(s) desea completar?',
-      choices: tasks.map((task: any, index: number) => {
-        const idx = `${index + 1}.`.green;
-        return {
-          value: task.id,
-          name: `${idx} ${task.description}`,
-          checked: task.completed ? true : false,
-        };
-      }),
-    },
-  ];
-  const { ids } = await inquirer.prompt(options);
-  return ids;
-};
-
 export const selectPlace = async (places: Place[]): Promise<string> => {
   const choices = places.map((place: Place, index: number) => {
     const idx = `${index + 1}.`.green;
@@ -108,16 +88,4 @@ export const selectPlace = async (places: Place[]): Promise<string> => {
   ];
   const { id } = await inquirer.prompt(options);
   return id;
-};
-
-export const confirm = async (message: string) => {
-  const question: QuestionCollection = [
-    {
-      type: 'confirm',
-      name: 'ok',
-      message,
-    },
-  ];
-  const { ok } = await inquirer.prompt(question);
-  return ok;
 };
