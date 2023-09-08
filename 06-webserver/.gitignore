@@ -1,0 +1,7 @@
+build
+node_modules
+dist
+http
+bin
+
+.env
