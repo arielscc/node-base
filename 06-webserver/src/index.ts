@@ -1,11 +1,24 @@
-import http, { IncomingMessage, ServerResponse } from 'http';
+import express from 'express';
 
-const server = http.createServer((req: IncomingMessage, res: ServerResponse) => {
-  res.end('Hello Worldes!');
-}).listen(3000);
+const app = express();
 
-server.on('listening', () => {
-  console.log('Server is listening on port 3000');
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
+app.get('/users', (req, res) => {
+  res.send('Hello Users!');
+});
 
+app.get('/users/:name', (req, res) => {
+  const { name } = req.params;
+  res.send(`Hello ${name}!`);
+});
+
+app.get('*', (req, res) => {
+  res.send('404 Not Found');
+});
+
+app.listen(8080, () => {
+  console.log('Server is running in http://localhost:8080');
+});
