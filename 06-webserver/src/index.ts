@@ -1,24 +1,21 @@
 import express from 'express';
+import path from 'path';
 
 const app = express();
+const port = 8080;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.use('/', express.static('public/web-page'));
+
+app.get('/generic', (req, res) => {
+  const genericPage = path.join(__dirname, '../public/web-page/generic.html');
+  res.sendFile(genericPage);
 });
 
-app.get('/users', (req, res) => {
-  res.send('Hello Users!');
+app.get('/elements', (req, res) => {
+  const elementsPage = path.join(__dirname, '../public/web-page/elements.html');
+  res.sendFile(elementsPage);
 });
 
-app.get('/users/:name', (req, res) => {
-  const { name } = req.params;
-  res.send(`Hello ${name}!`);
-});
-
-app.get('*', (req, res) => {
-  res.send('404 Not Found');
-});
-
-app.listen(8080, () => {
-  console.log('Server is running in http://localhost:8080');
+app.listen(port, () => {
+  console.log(`Server is running in http://localhost:${port}`);
 });
